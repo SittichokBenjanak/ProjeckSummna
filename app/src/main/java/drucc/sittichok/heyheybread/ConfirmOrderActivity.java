@@ -42,6 +42,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ConfirmOrderActivity extends AppCompatActivity {
     // Explicit
@@ -56,6 +57,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private int orderDetailAnInt = 0;
     private String strOrderNumber ;
     private String Balane;
+    private String Barcode;
+    private ManageTABLE objManageTABLE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,11 +267,17 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 objCursor.moveToNext(); // ทำต่อ
             }   // for
             objCursor.close(); // คืนหน่วยความจำ
+
+            // random barcode
+
+                RandomBarcodeinDB();
+
+
             // Update tborder on Server
             updateTotborder(strDate,
                     strIDuser,
                     Integer.toString(totalAnInt),
-                    "จัดเตรียม");
+                    "จัดเตรียม",Barcode);
             int sumbalance = intBalane - totalAnInt ;
             String strsumbalance = Integer.toString(sumbalance);
             updateMoneyuser(strIDuser,strsumbalance);
@@ -287,6 +296,23 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             finish();
         }
     }   // clickFinish
+
+    private void RandomBarcodeinDB() {
+        try {
+
+            Random random = new Random();
+            int random_int = random.nextInt((384000000 - 125000000) + 1) + 125000000;
+            Barcode = Integer.toString(random_int);
+            String[] resultStrings = objManageTABLE.searchBarcode(Barcode);
+
+
+        } catch (Exception e) {
+            e.toString();
+        }
+
+
+
+    }   // RandomBarcodeinDB
 
     private void updateMoneyuser(String iduser ,String Balance ) {
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -365,7 +391,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private void updateTotborder(String strDate,
                                  String strIDuser,
                                  String strSumtotal,
-                                 String strStatus) {
+                                 String strStatus,
+                                 String strBarcode) {
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy
                 .Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
@@ -376,6 +403,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             nameValuePairs.add(new BasicNameValuePair("CustomerID",strIDuser));
             nameValuePairs.add(new BasicNameValuePair("GrandTotal",strSumtotal));
             nameValuePairs.add(new BasicNameValuePair("Status",strStatus));
+            nameValuePairs.add(new BasicNameValuePair("Barcode",strBarcode));
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://www.fourchokcodding.com/mos/add/php_add_tborder.php");
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs,"UTF-8"));
@@ -397,6 +425,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         // จำนวนเงินคงเหลือ Balane  // ราคารวม  strsum
         int balance = Integer.parseInt(Balane);
         int intsum = Integer.parseInt(strsum);
+
         //  เซ็ตค่าให้ มี จุลภาค
         NumberFormat objNumberFormat = NumberFormat.getInstance();
         String strBalce = objNumberFormat.format(balance);

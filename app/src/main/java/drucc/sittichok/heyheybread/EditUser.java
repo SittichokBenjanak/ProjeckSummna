@@ -137,7 +137,7 @@ public class EditUser extends AppCompatActivity {
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                 MODE_PRIVATE,null);
         Cursor cursor = sqLiteDatabase
-                .rawQuery("SELECT * FROM userTABLE WHERE _id = " + "'"+strID +"'", null);
+                .rawQuery("SELECT * FROM userTABLE WHERE _id = " + "'"+ strID +"'", null);
         cursor.moveToFirst();
         String[] resultStrings = new String[cursor.getColumnCount()];
         for (int i=0; i<cursor.getColumnCount(); i++) {

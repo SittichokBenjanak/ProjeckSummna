@@ -64,11 +64,10 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
         int intTimes = 1;
-        while (intTimes <= 2) {
+        while (intTimes <= 1) {
             InputStream objInputStream = null;
             String strJSON = null;
             String strURLtborder = "http://www.fourchokcodding.com/mos/get/php_get_tborder.php";
-            String strURLtborderDetail = "http://www.fourchokcodding.com/mos/get/php_get_tborderdetail.php";
             HttpPost objHttpPost = null;
             // 1 Create InputStream
             try {
@@ -76,9 +75,6 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
                 switch (intTimes) {
                     case 1:
                         objHttpPost = new HttpPost(strURLtborder);
-                        break;
-                    case 2:
-                        objHttpPost = new HttpPost(strURLtborderDetail);
                         break;
                 }   // switch
                 HttpResponse objHttpResponse = objHttpClient.execute(objHttpPost);
@@ -113,19 +109,8 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
                             String strCustomerID = object.getString(ManageTABLE.COLUMN_CustomerID);
                             String strGrandTotal = object.getString(ManageTABLE.COLUMN_GrandTotal);
                             String strStatus1 = object.getString(ManageTABLE.COLUMN_Status);
-                            objManageTABLE.addtbOrder(strID2, strOrderDate, strCustomerID, strGrandTotal, strStatus1);
-                            break;
-                        case 2: // tborderdetail
-                            ManageTABLE obj2ManageTABLE = new ManageTABLE(this);
-                            String strID = object.getString("id");
-                            String strOrderNo = object.getString(ManageTABLE.COLUMN_OrderNo);
-                            String strOrderDetail_ID = object.getString(ManageTABLE.COLUMN_OrderDetail_ID);
-                            String strProduct_ID = object.getString(ManageTABLE.COLUMN_Product_ID);
-                            String strAmount2 = object.getString(ManageTABLE.COLUMN_Amount);
-                            String strPrice2 = object.getString(ManageTABLE.COLUMN_Price);
-                            String strPriceTotal = object.getString(ManageTABLE.COLUMN_PriceTotal);
-                            obj2ManageTABLE.addtbOrderDetail(strID, strOrderNo, strOrderDetail_ID, strProduct_ID,
-                                    strAmount2,strPrice2,strPriceTotal);
+                            String strBarcode = object.getString(ManageTABLE.COLUMN_Barcode);
+                            objManageTABLE.addtbOrder(strID2, strOrderDate, strCustomerID, strGrandTotal, strStatus1, strBarcode);
                             break;
                     }
                 }   // for
@@ -139,7 +124,6 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                 MODE_PRIVATE, null);
         objSqLiteDatabase.delete(ManageTABLE.TABLE_TBORDER,null,null);
-        objSqLiteDatabase.delete(ManageTABLE.TABLE_TBORDER_DETAIL, null, null);
     }   // deleteOrder
     private void imageController() {
 

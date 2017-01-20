@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.Random;
+
 /**
  * Created by mosza_000 on 2/1/2559.
  */
@@ -39,6 +41,7 @@ public class ManageTABLE {
     public static final String COLUMN_OrderDate = "OrderDate";
     public static final String COLUMN_CustomerID = "CustomerID";
     public static final String COLUMN_GrandTotal = "GrandTotal";
+    public static final String COLUMN_Barcode = "Barcode";
 
     public static final String TABLE_TBORDER_DETAIL = "tborderdetail";
     public static final String COLUMN_OrderNo = "OrderNo";
@@ -82,7 +85,8 @@ public class ManageTABLE {
                                   String strorderdate,
                                   String strCustomerID,
                                   String strGrandTotal,
-                                  String strStatus) {
+                                  String strStatus,
+                                  String strBarcode) {
 
         ContentValues objContentValues = new ContentValues();
         //ContentValues คือ obj ที่ใช้ในการเชื่อมต่อฐานข้อมูล มันคือตัวกลาง
@@ -91,6 +95,7 @@ public class ManageTABLE {
         objContentValues.put(COLUMN_CustomerID,strCustomerID);
         objContentValues.put(COLUMN_GrandTotal,strGrandTotal);
         objContentValues.put(COLUMN_Status,strStatus);
+        objContentValues.put(COLUMN_Barcode,strBarcode);
 
         return writeSqLiteDatabase.insert(TABLE_TBORDER,null,objContentValues);
     }   // addtbOrder
@@ -185,6 +190,32 @@ public class ManageTABLE {
         //return new String[0];
     }   //searchUser
 
+    public String[] searchBarcode(String strBarcode) {
+
+        try {
+
+            String[] resultStrings = null;
+            Cursor objCursor = readSqLiteDatabase.query(TABLE_TBORDER,
+                    new String[]{COLUMN_id, COLUMN_OrderDate, COLUMN_CustomerID,
+                            COLUMN_GrandTotal , COLUMN_Barcode},
+                    COLUMN_Barcode + "=?",
+                    new String[]{String.valueOf(strBarcode)},
+                    null,null,null,null);
+            if (objCursor != null) {
+
+
+
+            }   // if1
+
+            objCursor.close();
+            return resultStrings;
+
+        } catch (Exception e) {
+            return null;
+        }
+
+        //return new String[0];
+    }   //searchBarcode
 
     public long addNewOrder(
                             String strName,

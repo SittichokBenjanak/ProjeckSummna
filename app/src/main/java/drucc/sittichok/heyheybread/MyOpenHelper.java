@@ -46,7 +46,8 @@ public class MyOpenHelper extends SQLiteOpenHelper{
             "OrderDate text," +
             "CustomerID text," +
             "GrandTotal text," +
-            "Status text)";
+            "Status text," +
+            "Barcode text)";
 
     private static final String CREATE_TBORDER_DETAIL = "create table tborderdetail(" +
             "_id integer primary key," +

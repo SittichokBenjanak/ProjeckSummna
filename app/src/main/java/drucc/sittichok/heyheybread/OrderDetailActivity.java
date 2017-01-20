@@ -142,7 +142,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     private void readAllorderdetail() {
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                 MODE_PRIVATE,null);
-        Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT Bread, * FROM tborderdetail INNER JOIN breadTABLE ON (breadTABLE._id = tborderdetail.Product_ID) WHERE OrderNo = " + "'" + strOrderID + "'" + "ORDER BY `tborderdetail`.`OrderDetail_ID` ASC ", null);
+        Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT Bread, * FROM  " + ManageTABLE.TABLE_TBORDER_DETAIL + " INNER JOIN " + ManageTABLE.TABLE_BREAD + " ON (breadTABLE._id = tborderdetail.Product_ID) WHERE OrderNo = " + "'" + strOrderID + "'" + "ORDER BY `tborderdetail`.`OrderDetail_ID` ASC ", null);
         objCursor.moveToFirst();
 
         final String[] Orderdetail = new String[objCursor.getCount()];
