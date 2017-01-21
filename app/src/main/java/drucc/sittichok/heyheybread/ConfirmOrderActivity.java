@@ -282,11 +282,12 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             String strsumbalance = Integer.toString(sumbalance);
             updateMoneyuser(strIDuser,strsumbalance);
             // Intent HubActivity
-            Intent objIntent = new Intent(ConfirmOrderActivity.this, HubActivity.class);
+            Intent objIntent = new Intent(ConfirmOrderActivity.this, Barcode.class);
             // ทำเสร็จแล้ว ให้ กลับไปหน้า HubActivity.class
             String strID = getIntent().getStringExtra("idUser");
             objIntent.putExtra("ID", strID); //แล้วส่งค่า ID คืนไปที่หน้า HubActivity.class ด้วย
             //Log.d("19Feb", "ID ที่ได้ ==> " + strID);
+            objIntent.putExtra("IDbarcode", Barcode);
             startActivity(objIntent);
 
             //Delete OrderTABLE

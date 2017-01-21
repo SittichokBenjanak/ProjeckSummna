@@ -56,5 +56,8 @@
     <string name="item">คงเหลือ</string>
     <string name="amount">ชิ้น</string>
     <string name="item2">ราคา/ชิ้น</string>
+    <string name="idbarcode">กรุณาแคปหน้าจอเก็บไว้เป็นหลักฐาน</string>
+    <string name="pleas">กรุณาแคปหน้าจอ</string>
+    <string name="fimish">เสร็จสิ้น</string>
 
 </resources>

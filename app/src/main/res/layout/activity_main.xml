@@ -29,14 +29,14 @@
             android:layout_marginTop="20dp" />
 
         <TextView
+            android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tell"
-            android:id="@+id/textView17"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:text="@string/tell"
             android:textColor="#0b0a0a"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp" />
+            android:textSize="20dp" />
 
         <EditText
             android:layout_width="@dimen/edittext"
