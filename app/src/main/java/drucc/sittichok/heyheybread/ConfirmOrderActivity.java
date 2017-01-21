@@ -300,10 +300,17 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private void RandomBarcodeinDB() {
         try {
 
-            Random random = new Random();
-            int random_int = random.nextInt((384000000 - 125000000) + 1) + 125000000;
-            Barcode = Integer.toString(random_int);
-            String[] resultStrings = objManageTABLE.searchBarcode(Barcode);
+            while (true) {
+                Random random = new Random();
+                int random_int = random.nextInt((384000000 - 125000000) + 1) + 125000000;
+                Barcode = Integer.toString(random_int);
+                String[] resultStrings = objManageTABLE.searchBarcode(Barcode);
+
+                if (resultStrings[4] == null) {
+                    break;
+                }
+            }   // while
+
 
 
         } catch (Exception e) {

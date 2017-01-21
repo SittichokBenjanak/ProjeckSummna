@@ -203,7 +203,15 @@ public class ManageTABLE {
                     null,null,null,null);
             if (objCursor != null) {
 
+                if (objCursor.moveToFirst()) { //moveToFirst หาจากบนลงล่าง
 
+                    int intTimes = objCursor.getColumnCount(); //getColumnCount(); นับคอลัม ก่อน ว่า มี กี่คอมลัม
+
+                    resultStrings = new String[intTimes];
+                    for (int i=0; i<intTimes; i++) {
+                        resultStrings[i] = objCursor.getString(i);
+                    }
+                }   //if2
 
             }   // if1
 
