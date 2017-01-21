@@ -47,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView56"
                 android:layout_weight="1"
-                android:textSize="@dimen/h2" />
+                android:textSize="@dimen/h2"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
@@ -70,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/textView57"
                 android:layout_weight="1"
-                android:textSize="@dimen/h2" />
+                android:textSize="@dimen/h2"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:text="@string/d2"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -21,10 +22,12 @@
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="@dimen/icon"
-            android:layout_height="@dimen/icon"
-            android:layout_margin="10dp"
-            android:layout_weight="1" />
+            android:layout_width="@dimen/menu"
+            android:layout_height="@dimen/menu"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            tools:ignore="ContentDescription,RtlHardcoded" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,7 +50,7 @@
                 android:layout_weight="1"
                 android:text="@string/d1"
                 android:textColor="@color/text"
-                android:textSize="@dimen/h2" />
+                android:textSize="@dimen/h3" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -56,8 +59,9 @@
                 android:layout_weight="1"
                 android:text="50"
                 android:textColor="@color/text"
-                android:textSize="@dimen/h1"
-                android:textStyle="bold" />
+                android:textSize="@dimen/h4"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -66,7 +70,7 @@
                 android:layout_weight="1"
                 android:text="@string/item2"
                 android:textColor="@color/text"
-                android:textSize="@dimen/h2" />
+                android:textSize="@dimen/h3" />
 
         </LinearLayout>
 
@@ -82,7 +86,7 @@
                 android:layout_weight="1"
                 android:text="@string/item"
                 android:textColor="@color/text"
-                android:textSize="@dimen/h2" />
+                android:textSize="@dimen/h3" />
 
             <TextView
                 android:id="@+id/textView70"
@@ -91,8 +95,9 @@
                 android:layout_weight="1"
                 android:text="50"
                 android:textColor="@color/text"
-                android:textSize="@dimen/h1"
-                android:textStyle="bold" />
+                android:textSize="@dimen/h4"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textView71"
@@ -101,7 +106,7 @@
                 android:layout_weight="1"
                 android:text="@string/amount"
                 android:textColor="@color/text"
-                android:textSize="@dimen/h2" />
+                android:textSize="@dimen/h3" />
         </LinearLayout>
 
     </LinearLayout>

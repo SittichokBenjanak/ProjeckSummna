@@ -11,7 +11,7 @@
     <string name="a5">กรุณากรอกที่อยู่</string>
     <string name="a55">ยืนยันการสั่งซื้อ</string>
     <string name="a6">กรุณากรอกเบอร์โทร"</string>
-    <string name="tell">โทร. 084-434-5155"</string>
+    <string name="tell">โทร. 094-069-4479"</string>
     <string name="receive">OrderList</string>
     <string name="receive1">GrandTotal</string>
     <string name="b1">No</string>
@@ -56,8 +56,9 @@
     <string name="item">คงเหลือ</string>
     <string name="amount">ชิ้น</string>
     <string name="item2">ราคา/ชิ้น</string>
-    <string name="idbarcode">กรุณาแคปหน้าจอเก็บไว้เป็นหลักฐาน</string>
+    <string name="idbarcode">กรุณาแคปหน้าจอ</string>
     <string name="pleas">กรุณาแคปหน้าจอ</string>
     <string name="fimish">เสร็จสิ้น</string>
+    <string name="setname">ร้านขนมปังโชคดี</string>
 
 </resources>
