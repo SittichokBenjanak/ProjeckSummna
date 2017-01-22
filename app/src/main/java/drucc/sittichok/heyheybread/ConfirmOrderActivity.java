@@ -235,14 +235,9 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 StrictMode.ThreadPolicy myPolicy = new StrictMode.ThreadPolicy
                         .Builder().permitAll().build();
                 StrictMode.setThreadPolicy(myPolicy);   // อนุญาตืให้ myPolicy เชื่อมต่อ โปรโตคอล ได้
-                try {
-                    //Find Id Bread
-                    ManageTABLE objManageTABLE = new ManageTABLE(this);
-                    String[] resultStrings = objManageTABLE.SearchBread(strBread);
-                    //Log.d("11April", "id bread ที่สั่งได้ " + strBread + " " + resultStrings[0]);
-                } catch (Exception e) {
-                    Log.d("16Feb", "Cannot Delete Stock");
-                }// end of TryCase 2
+
+                //Update breadTABLE
+                updateBreadStock(strBread, strItem);
 
                 // Update to tborderdetail on Server
                 //Log.d("12April", "clickFinish OrderNo ล่าสุดที่อ่าได้ ==> " + strOrderNo);
@@ -270,7 +265,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
             // random barcode
 
-                RandomBarcodeinDB();
+            RandomBarcodeinDB();
 
 
             // Update tborder on Server
@@ -297,6 +292,72 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             finish();
         }
     }   // clickFinish
+
+    private void updateBreadStock(String strBread, String strItem) {
+
+        String tag = "updateBreadStock";
+        int intCurrentStock;
+        String strCurrentStock;
+        String strID;
+
+        // หา ID ของ Bread
+        try {
+
+            ManageTABLE objmanageTABLE = new ManageTABLE(this);
+            String[] resultBread = objmanageTABLE.searchBreadStock(strBread);
+
+
+            strID = resultBread[0];
+            Log.d(tag, "ID bread ==> " + strID);
+
+
+            Log.d(tag, "Stock ที่อ่านได้ จาก ID = " + resultBread[2]); // ดูที่ เมธอด searchBreadStock มีแค่ 3 ตัว ที่ดึงมา
+
+            intCurrentStock = Integer.parseInt(resultBread[2]) - Integer.parseInt(strItem);
+            strCurrentStock = Integer.toString(intCurrentStock);
+
+            Log.d(tag, "CurrentStock ==> " + strCurrentStock);
+
+            //Edit Value on breadTABLE
+            editVlueOnBreadTABLE(strID, strCurrentStock);
+
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+
+    }   // updateBreadStock
+
+    private void editVlueOnBreadTABLE(String strID, String strCurrentStock) {
+
+        String tag = "updateBreadStock";
+
+        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy
+                .Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
+        try {
+
+            ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+            nameValuePairs.add(new BasicNameValuePair("isAdd", "true"));
+            nameValuePairs.add(new BasicNameValuePair("id",strID));
+            nameValuePairs.add(new BasicNameValuePair("Amount",strCurrentStock));
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost("http://www.fourchokcodding.com/mos/edit/php_edit_stock.php");
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
+            httpClient.execute(httpPost);
+
+            Log.d(tag, "Edit Finish");
+
+
+        } catch (Exception e) {
+            Log.d(tag, "ไม่สามารถ Edit ได้ " + e.toString());
+        }
+
+    }   // editVlueOnBreadTABLE
 
     private void RandomBarcodeinDB() {
         try {
@@ -330,7 +391,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 .add("Balance", Balance)
                 .build();
         Request.Builder builder = new Request.Builder();
-        Request request = builder.url("http://www.fourchokcodding.com/edit/mos/php_edit_money.php")
+        Request request = builder.url("http://www.fourchokcodding.com/mos/edit/php_edit_money.php")
                 .post(requestBody).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -388,7 +449,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         try {
             SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                     MODE_PRIVATE,null);
-            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM breadTABLE WHERE Bread = " + "'" + strBread + "'", null);
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ ManageTABLE.TABLE_BREAD + " WHERE Bread = " + "'" + strBread + "'", null);
             cursor.moveToFirst();
             strProductID = cursor.getString(0);
             return strProductID;

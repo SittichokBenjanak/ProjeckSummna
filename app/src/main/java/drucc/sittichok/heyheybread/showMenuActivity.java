@@ -162,7 +162,7 @@ public class showMenuActivity extends AppCompatActivity {
         // Setup Value
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME, // ทำการเปิดฐานข้อมูล
                 MODE_PRIVATE, null);
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM breadTABLE WHERE status = '1'", null); // จองหน่วยความจำ
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + ManageTABLE.TABLE_BREAD + " WHERE Status = '1' and Amount > 0 ", null); // จองหน่วยความจำ
         cursor.moveToFirst();
         final String[] iconStrings = new String[cursor.getCount()];
         final String[] breadStrings = new String[cursor.getCount()];
@@ -178,7 +178,7 @@ public class showMenuActivity extends AppCompatActivity {
         cursor.close();
         ListView menuListView = (ListView) findViewById(R.id.listView);  // นำ ListView ที่สร้างมาใช้งาน
         MenuAdapter objMenuAdapter = new MenuAdapter(showMenuActivity.this, // ให้ ListView โชว์ค่า ชื่อ ราคา จำนวน รูป
-                priceStrings,amount2Strings, breadStrings, iconStrings);
+                priceStrings, amount2Strings, breadStrings, iconStrings);
         menuListView.setAdapter(objMenuAdapter);
         // Active When Click ListView   // ถ้าคลิก เลือก สินค้า จะโชว์ หน้าต่างจำนวน สินค้าให้เลือก
         menuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

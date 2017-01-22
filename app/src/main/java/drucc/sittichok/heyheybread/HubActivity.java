@@ -179,7 +179,7 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
     private void checkHistory() {
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                 MODE_PRIVATE, null);
-        Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT * FROM tborder WHERE CustomerID = " + idString, null);
+        Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT * FROM " + ManageTABLE.TABLE_TBORDER + "WHERE CustomerID = " + idString, null);
         if (objCursor.getCount() > 0) {
             Intent intent2 = new Intent(HubActivity.this, HistoryActivity.class);
             intent2.putExtra("ID", idString);

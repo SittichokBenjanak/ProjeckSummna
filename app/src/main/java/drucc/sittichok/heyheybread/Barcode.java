@@ -42,7 +42,7 @@ public class Barcode extends AppCompatActivity {
         try {
 
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-            BitMatrix bitMatrix = multiFormatWriter.encode(strIdBarcode,BarcodeFormat.CODE_128,500,300);
+            BitMatrix bitMatrix = multiFormatWriter.encode(strIdBarcode,BarcodeFormat.CODE_128,700,300);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             imageView.setImageBitmap(bitmap);
