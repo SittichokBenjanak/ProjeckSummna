@@ -298,7 +298,7 @@ public class ManageTABLE {
 
             String[] resultStrings = null;
             Cursor objCursor = readSqLiteDatabase.query(TABLE_BREAD,
-                    new String[]{COLUMN_id, COLUMN_Bread, COLUMN_Amount},
+                    new String[]{COLUMN_id, COLUMN_Bread, COLUMN_Amount2},
                     COLUMN_Bread + "=?",
                     new String[]{String.valueOf(strBread)},
                     null,null,null,null);

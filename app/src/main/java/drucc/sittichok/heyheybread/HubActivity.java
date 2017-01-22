@@ -26,9 +26,10 @@ import java.io.InputStreamReader;
 
 public class HubActivity extends AppCompatActivity implements View.OnClickListener {
     // Explicit
-    private ImageView orderImageView,editImageView, mapImageView,
+    private ImageView orderImageView, editImageView, mapImageView,
             complacencyImageView, checkmoneyImageView;
     private String idString;    // รับค่า Receive id ที่ user login อยู่
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,7 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
         //Image Controller
         imageController();
     }   // onCreate
+
     public void onBackPressed() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setIcon(R.drawable.icon_question);
@@ -58,8 +60,9 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
                 dialog.cancel();
             }
         });
-                dialog.show();
+        dialog.show();
     }
+
     private void syntborder() {
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
@@ -99,7 +102,7 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
             // 3 Update JSON String to SQLite
             try {
                 JSONArray objJsonArray = new JSONArray(strJSON);
-                for (int i=0; i<objJsonArray.length(); i++) {
+                for (int i = 0; i < objJsonArray.length(); i++) {
                     JSONObject object = objJsonArray.getJSONObject(i);
                     switch (intTimes) {
                         case 1:
@@ -120,11 +123,13 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
             intTimes += 1;
         }   // while
     }   // syntborder
+
     private void deleteOrder() {
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                 MODE_PRIVATE, null);
-        objSqLiteDatabase.delete(ManageTABLE.TABLE_TBORDER,null,null);
+        objSqLiteDatabase.delete(ManageTABLE.TABLE_TBORDER, null, null);
     }   // deleteOrder
+
     private void imageController() {
 
         orderImageView.setOnClickListener(this);
@@ -133,6 +138,7 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
         complacencyImageView.setOnClickListener(this);
         checkmoneyImageView.setOnClickListener(this);
     }
+
     private void bindWidget() {
         orderImageView = (ImageView) findViewById(R.id.imageView2);
         editImageView = (ImageView) findViewById(R.id.imageView4);
@@ -140,6 +146,7 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
         complacencyImageView = (ImageView) findViewById(R.id.imageView6);
         checkmoneyImageView = (ImageView) findViewById(R.id.imageView10);
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -176,10 +183,11 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
                 break;
         }   //switch
     }   // onClick
+
     private void checkHistory() {
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                 MODE_PRIVATE, null);
-        Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT * FROM " + ManageTABLE.TABLE_TBORDER + "WHERE CustomerID = " + idString, null);
+        Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT * FROM " + ManageTABLE.TABLE_TBORDER + " WHERE CustomerID = " + idString, null);
         if (objCursor.getCount() > 0) {
             Intent intent2 = new Intent(HubActivity.this, HistoryActivity.class);
             intent2.putExtra("ID", idString);
@@ -187,7 +195,7 @@ public class HubActivity extends AppCompatActivity implements View.OnClickListen
             finish();
         } else {
             MyAlertDialog objMyAlertDialog = new MyAlertDialog();
-            objMyAlertDialog.errorDialog(HubActivity.this,"ยังไม่มีประวัติการสั่งซื้อ","กรุณาสั่งสินค้าก่อนครับ");
+            objMyAlertDialog.errorDialog(HubActivity.this, "ยังไม่มีประวัติการสั่งซื้อ", "กรุณาสั่งสินค้าก่อนครับ");
         }
     }   // checkHistory
 }   // Main Class

@@ -142,7 +142,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     private void readAllorderdetail() {
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.DATABASE_NAME,
                 MODE_PRIVATE,null);
-        Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT Bread, * FROM  " + ManageTABLE.TABLE_TBORDER_DETAIL + " INNER JOIN " + ManageTABLE.TABLE_BREAD + " ON (breadTABLE._id = tborderdetail.Product_ID) WHERE OrderNo = " + "'" + strOrderID + "'" + "ORDER BY `tborderdetail`.`OrderDetail_ID` ASC ", null);
+        Cursor objCursor = objSqLiteDatabase.rawQuery("SELECT * FROM " + ManageTABLE.TABLE_TBORDER_DETAIL + " WHERE `tborderdetail`.`OrderNo` = " + "'" + strOrderID + "'" + "ORDER BY `tborderdetail`.`OrderDetail_ID` ASC", null);
         objCursor.moveToFirst();
 
         final String[] Orderdetail = new String[objCursor.getCount()];
@@ -153,13 +153,13 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         for (int i = 0; i<objCursor.getCount(); i++) {
             Orderdetail[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_OrderDetail_ID));
-            Productdetail[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_Bread));
+            Productdetail[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_Product_ID));
             Amountdetail[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_Amount));
             Pricedetail[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_Price));
             Sumpricedetail[i] = objCursor.getString(objCursor.getColumnIndex(ManageTABLE.COLUMN_PriceTotal));
             // หา ชื่อสินค้า จาก id product
             objCursor.moveToNext();
-
+            Log.d("hey","Sum ==> "+ Amountdetail[i] );
         }   // for
 
 
